@@ -13,9 +13,9 @@ int main(int argc,char *argv[]){
     int yMax , xMax;
     getmaxyx(stdscr,yMax,xMax);
 
-    WINDOW *TimeWin = newwin(7,50,yMax/5,xMax/4);
-    start_color();
-    init_pair(1,COLOR_RED,COLOR_BLACK);
+    WINDOW *TimeWin = newwin(7,50,yMax/5,xMax/4); // Make a box 
+    start_color();           // coloring the box
+    init_pair(1,COLOR_RED,COLOR_BLACK); 
     wattron(TimeWin,COLOR_PAIR(1));
     box(TimeWin,'*','*');
     wattroff(TimeWin,COLOR_PAIR(1));
