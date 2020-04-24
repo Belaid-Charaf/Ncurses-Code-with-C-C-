@@ -1,0 +1,65 @@
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
+ '(ansi-color-names-vector
+   ["black" "#d55e00" "#009e73" "#f8ec59" "#0072b2" "#cc79a7" "#56b4e9" "white"])
+ '(column-number-mode t)
+ '(custom-enabled-themes (quote (wheatgrass)))
+ '(fringe-mode 4 nil (fringe))
+ '(indicate-buffer-boundaries nil)
+ '(line-number-mode nil)
+ '(package-selected-packages
+   (quote
+    (darkmine-theme company-irony irony autopair yasnippet flymake-google-cpplint auto-complete-c-headers auto-complete)))
+ '(scroll-bar-mode nil)
+ '(tool-bar-mode nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "Consolas" :foundry "MS  " :slant normal :weight normal :height 120 :width normal)))))
+
+(require 'package)
+
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
+
+(package-initialize)
+
+
+(require 'auto-complete)
+; do default config for auto-complete
+(require 'auto-complete-config)
+(ac-config-default)
+; start yasnippet with emacs
+(require 'yasnippet)
+(yas-global-mode 1)
+; let's define a function which initializes auto-complete-c-headers and gets called for c/c++ hooks
+(defun my:ac-c-header-init ()
+  (require 'auto-complete-c-headers)
+  (add-to-list 'ac-sources 'ac-source-c-headers)
+  (add-to-list 'achead:include-directories '"/usr/include/c++/7.5.0/" '"/usr/include/ncursesw/")
+)
+; now let's call this function from c/c++ hooks
+(add-hook 'c++-mode-hook 'my:ac-c-header-init)
+(add-hook 'c-mode-hook 'my:ac-c-header-init)
+
+(require 'autopair)
+(autopair-global-mode)
+
+(global-linum-mode 1) 
+
+(setq c-basic-offset 4)
+
+(add-hook 'c++-mode-hook 'irony-mode)
+(add-hook 'c-mode-hook 'irony-mode)
+(add-hook 'objc-mode-hook 'irony-mode)
+
+(eval-after-load 'company
+  '(add-to-list 'company-backends 'company-irony))
+
+(load-theme 'darkmine t)
