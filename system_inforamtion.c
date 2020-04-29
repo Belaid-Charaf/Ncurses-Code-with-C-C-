@@ -1,3 +1,4 @@
+// this code let you know your system information **Special for GNU/Linux
 #include <stdio.h>
 #include <stdlib.h>
 #include <ncurses.h>
