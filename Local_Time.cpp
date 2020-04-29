@@ -1,3 +1,7 @@
+// This code let you know the current time !
+
+
+
 #include <iostream>
 #include <ncurses.h>
 #include <ctime>
